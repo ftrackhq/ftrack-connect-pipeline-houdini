@@ -12,6 +12,8 @@ logger = logging.getLogger('ftrack_connect_pipeline_houdini.discover')
 
 def on_application_launch(session, event):
 
+    logger.info('preparing Houdini pipeline launch.')
+
     plugin_base_dir = os.path.normpath(
         os.path.join(
             os.path.abspath(
@@ -31,7 +33,7 @@ def on_application_launch(session, event):
 
     sys.path.append(python_dependencies)
 
-    from ftrack_connect_pipeline_houdini import _version as integration_version
+    #from ftrack_connect_pipeline_houdini import _version as integration_version
 
     entity = event['data']['context']['selection'][0]
     task = session.get('Context', entity['entityId'])
@@ -42,7 +44,7 @@ def on_application_launch(session, event):
     data = {
         'integration': {
             "name": 'ftrack-connect-pipeline-houdini',
-            'version': integration_version,
+            'version': '0.1.0',
             'env': {
                 'FTRACK_EVENT_PLUGIN_PATH.prepend': plugin_hook,
                 'PYTHONPATH.prepend': python_dependencies,
